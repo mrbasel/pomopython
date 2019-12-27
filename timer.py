@@ -4,7 +4,7 @@ from playsound import playsound
 
 
 # Insert time in minutes
-def timer(minutes=25, isbreaktime=False):
+def timer(minutes=25, isbreaktime= False):
     clear()
     seconds = 0
     while True:
@@ -12,7 +12,10 @@ def timer(minutes=25, isbreaktime=False):
             minutes -= 1
             seconds = 60
         seconds = seconds - 1
-        displayclock(minutes, seconds)
+        if isbreaktime:
+            displayclock(minutes, seconds, isbreaktime=True)
+        else:
+            displayclock(minutes, seconds)
         sleep(1)
         clear()
         if minutes == 0 and seconds == 0:
@@ -27,7 +30,7 @@ def displayclock(minutes, seconds, isbreaktime=False):
     else:
         clock = f'{minutes}:{seconds}'
 
-    if isbreaktime:
+    if isbreaktime == True:
         print( f'''
         |*------------------------*|
                   {clock}
@@ -66,7 +69,7 @@ def breaktimer(time=5):
     while True:
         userinput = input('Do you want to have a break? (y/n)\n')
         if userinput.lower() == 'y':
-            timer(time)
+            timer(time, isbreaktime=True)
         elif userinput.lower() == 'n':
             pass
         else:
@@ -85,18 +88,18 @@ def clear():
     os.system('cls')
 
 
-def typeLetterByLetter(text, delay=0.1):
+def printletterbyletter(text, delay=0.1):
     for char in text:
         sys.stdout.write(char)
-        sleep(delay)
         sys.stdout.flush()
+        sleep(delay)
         # sleep(1)
 
 
 # Main process
 def main(worktime=25, breaktime=5, soundeffect=True):
     clear()
-    typeLetterByLetter('Welcome to PomoPython!')
+    printletterbyletter('Welcome to PomoPython!', delay=0.06)
     timeChoise = choosetime() # Askes user for work and break time
     worktime = timeChoise[0]
     breaktime = timeChoise[1]
@@ -108,30 +111,26 @@ def main(worktime=25, breaktime=5, soundeffect=True):
 
             [s] to start timer
             [q] to quit
-            [g] github page
-
+            [b] to change time
 -------------------------------------------
             ''')
             userchoise = input('')
             if userchoise.lower() == 's':
                 worktimer(worktime) # starts Work timer
-                breaktimer(breaktime, isbreaktime=True) # starts Break timer
+                breaktimer(breaktime) # starts Break timer
             elif userchoise.lower() == 'q':
-                typeLetterByLetter('Goodbye!', 0.05)
+                printletterbyletter('Goodbye!', 0.03)
                 sleep(0.5)
                 break
+            elif userchoise.lower() == 'b':
+                main()
             else:
                 print('I dont understand!')
                 sleep(0.5)
                 clear()
                 pass
     except KeyboardInterrupt:
-        typeLetterByLetter('Goodbye!')
-
-class Timer:
-    def __init__(self):
-        passn
-
+        printletterbyletter('Goodbye!')
 
 
 if __name__ == '__main__':
