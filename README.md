@@ -7,8 +7,8 @@ Pomopython is a very simple command line pomodoro timer made with python
 pip clone https://github.com/mrbasel/pomopython.git
 ```
 ### Install packages 
-CD to pomopython then:
 ```bash 
+cd pomopython
 pip install -r requirements.txt
 ```
 
