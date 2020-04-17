@@ -52,13 +52,14 @@ def displayclock(minutes, seconds, isbreaktime=False):
 def choosetime():
     while True:
         try:
-            worktime = input('\nInsert work time(In minutes):\n')
-            breaktime = input('Break time:\n')
-        except Exception as e:
-            print(e)
+            worktime = int(input('\nInsert work time(In minutes):\n'))
+            breaktime = int(input('Break time:\n'))
+        except ValueError:
+            print('Please enter a number')
             continue
-        break
-    return [int(worktime), int(breaktime)]
+        else:
+            break
+    return {'worktime': worktime, 'breaktime': breaktime}
 
 
 def worktimer(time=25):
@@ -101,8 +102,8 @@ def main(worktime=25, breaktime=5, soundeffect=True):
     clear()
     printletterbyletter('Welcome to PomoPython!', delay=0.06)
     timeChoise = choosetime() # Askes user for work and break time
-    worktime = timeChoise[0]
-    breaktime = timeChoise[1]
+    worktime = timeChoise['worktime']
+    breaktime = timeChoise['breaktime']
     clear()
     try:
         while True:
